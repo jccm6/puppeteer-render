@@ -9,7 +9,8 @@ const scrapeLogic = async (res) => {
 	try {
 		const page = await browser.newPage();
 
-		await page.goto("https://example.com/", { waitUntil: "networkidle0" });
+		await page.goto("https://api.scraperapi.com?api_key=3202a932c39c99daf584f5d126be1b94&url=https://example.com/&device_type=desktop", { waitUntil: "networkidle0" });
+		// await page.goto("https://example.com/", { waitUntil: "networkidle0" });
 
 		// Set screen size
 		await page.setViewport({ width: 1080, height: 1024 });
