@@ -3,13 +3,13 @@ require("dotenv").config();
 
 const scrapeLogic = async (res) => {
 	const browser = await puppeteer.launch({
-		args: [`--proxy-server=${process.env.SCRAPERAPI_URI}`, "--disable-features=site-per-process", "--disable-setuid-sandbox", "--no-sandbox", "--single-process", "--no-zygote"],
+		args: ["--disable-setuid-sandbox", "--no-sandbox", "--single-process", "--no-zygote"],
 		executablePath: process.env.NODE_ENV === "production" ? process.env.PUPPETEER_EXECUTABLE_PATH : puppeteer.executablePath(),
 	});
 	try {
 		const page = await browser.newPage();
 
-		await page.goto("https://developer.chrome.com/");
+		await page.goto("https://example.com/", { waitUntil: "networkidle0" });
 
 		// Set screen size
 		await page.setViewport({ width: 1080, height: 1024 });
@@ -23,7 +23,7 @@ const scrapeLogic = async (res) => {
 		// await page.click(searchResultSelector);
 
 		// Locate the full title with a unique string
-		const textSelector = await page.waitForSelector("#una-web-potente-span-stylecolor-000-display-blockmas-facilspan");
+		const textSelector = await page.waitForSelector("h1");
 		const fullTitle = await textSelector.evaluate((el) => el.textContent);
 
 		// Print the full title
