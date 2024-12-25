@@ -5,7 +5,7 @@ const scrapeLogic = async (res) => {
 	const browser = await puppeteer.launch({
 		ignoreHTTPSErrors: true,
 		args: [`--proxy-server=${process.env.SCRAPERAPI_URI}, --disable-features=site-per-process`],
-		executablePath: process.env.NODE_ENV === "production" ? process.env.PUPPETEER_EXECUTABLE_PATH : puppeteer.executablePath(),
+		// executablePath: process.env.NODE_ENV === "production" ? process.env.PUPPETEER_EXECUTABLE_PATH : puppeteer.executablePath(),
 	});
 
 	const page = await browser.newPage();
