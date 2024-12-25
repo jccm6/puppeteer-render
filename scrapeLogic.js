@@ -9,10 +9,10 @@ const scrapeLogic = async (res) => {
 
 	const page = await browser.newPage();
 
-	// await page.authenticate({
-	// 	username: process.env.SCRAPERAPI_USER,
-	// 	password: process.env.SCRAPERAPI_PASS,
-	// });
+	await page.authenticate({
+		username: process.env.SCRAPERAPI_USER,
+		password: process.env.SCRAPERAPI_PASS,
+	});
 
 	try {
 		// await page.goto("https://api.scraperapi.com?api_key=3202a932c39c99daf584f5d126be1b94&url=https://example.com/&device_type=desktop", { waitUntil: "networkidle0" });
