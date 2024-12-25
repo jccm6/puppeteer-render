@@ -62,7 +62,6 @@ require("dotenv").config();
 
 const scrapeLogic = async (res) => {
 	const browser = await puppeteer.launch({
-		headless: false,
 		ignoreHTTPSErrors: true,
 		args: [`--proxy-server=${process.env.SCRAPERAPI_URI}`, "--disable-setuid-sandbox", "--no-sandbox", "--single-process", "--no-zygote"],
 	});
