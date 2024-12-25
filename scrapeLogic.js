@@ -3,13 +3,18 @@ require("dotenv").config();
 
 const scrapeLogic = async (res) => {
 	const browser = await puppeteer.launch({
-		args: ["--disable-setuid-sandbox", "--no-sandbox", "--single-process", "--no-zygote"],
+		args: [`--proxy-server=${process.env.SCRAPERAPI_FULL_URI}, --disable-features=site-per-process`, "--ignore-certificate-errors", "--disable-setuid-sandbox", "--no-sandbox", "--single-process", "--no-zygote"],
 		executablePath: process.env.NODE_ENV === "production" ? process.env.PUPPETEER_EXECUTABLE_PATH : puppeteer.executablePath(),
 	});
 
-	try {
-		const page = await browser.newPage();
+	const page = await browser.newPage();
 
+	await page.authenticate({
+		username: process.env.SCRAPERAPI_USER,
+		password: process.env.SCRAPERAPI_PASS,
+	});
+
+	try {
 		// await page.goto("https://api.scraperapi.com?api_key=3202a932c39c99daf584f5d126be1b94&url=https://patentechile.com/&device_type=desktop", { waitUntil: "networkidle0" });
 		await page.goto("https://example.com/", { waitUntil: "networkidle2" });
 
